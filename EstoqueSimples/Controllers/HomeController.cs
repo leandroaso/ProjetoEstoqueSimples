@@ -1,6 +1,7 @@
 ﻿using EstoqueSimples.DAO;
 using EstoqueSimples.Filtros;
 using EstoqueSimples.Models;
+using Microsoft.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,38 @@ namespace EstoqueSimples.Controllers
         [AutorizacaoFilter]
         public ActionResult Index()
         {
+            string nome = Request.QueryString["nome"];
+            string nomeCategoria = Request.QueryString["nomeCategoria"];
+            string qtdMim = Request.QueryString["qtdMim"];
+            string qtdMax = Request.QueryString["qtdMax"];
+
+            EstoqueContext contexto = new EstoqueContext();
+            var busca = from p in contexto.Produtos.Include(p => p.Categoria) select p ;
+
+            if (!String.IsNullOrEmpty(nome))
+            {
+                busca = busca.Where(p => p.Nome == nome);
+            }
+            if (!String.IsNullOrEmpty(nomeCategoria))
+            {
+                busca = busca.Where(p => p.Categoria.Nome == nomeCategoria);
+
+            }
+            if (!String.IsNullOrEmpty(qtdMim))
+            {
+                busca = busca.Where(p => p.Quantidade >= Convert.ToInt32(qtdMim));
+            }
+            if (!String.IsNullOrEmpty(qtdMax))
+            {
+                busca = busca.Where(p => p.Quantidade <= Convert.ToInt32(qtdMax));
+
+            }
+
+            ViewBag.Produtos = busca.ToList();
+
+            CategoriaDao categoriaDao = new CategoriaDao();
+            ViewBag.Categorias = categoriaDao.List();
+            //string Nome, string categoria, int qtdMin = 0, int qtdMax = 999999
             ViewBag.Title = "Home";
             return View();
         }

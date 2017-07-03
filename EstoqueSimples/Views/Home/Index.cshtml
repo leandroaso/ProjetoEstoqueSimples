@@ -1,2 +1,67 @@
 ﻿
-<h1>Tela inicial </h1>
+<form action="/" class="form-inline" method="get">
+    <input type="text" name="nome" class="form-control input-sm" value="@Request.QueryString["nome"]" placeholder="Nome do produto" />
+    <select name="nomeCategoria" class="form-control input-sm">
+        <option value="">Todos</option>
+        @foreach (var categoria in ViewBag.Categorias)
+        {
+            <option value="@categoria.Nome" selected="@categoria.Nome.Equals(@Request.QueryString["nomeCategoria"])">@categoria.Nome</option>
+        }
+    </select>
+    <input type="text" name="qtdMim" class="form-control input-sm" value="@Request.QueryString["qtdMim"]" placeholder="Quantidade minima" />
+    <input type="text" name="qtdMax" class="form-control input-sm" value="@Request.QueryString["qtdMax"]" placeholder="Quantidade maxima"/>
+    
+    <button type="submit" class="btn btn-success btn-sm">Busca</button>
+</form>
+
+<table class="table table-hover table-style text-center">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descricao</th>
+            <th>Quantidade</th>
+            <th>Categoria</th>
+            <th class="col-md-1">Acoes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in ViewBag.Produtos)
+        {
+            <tr>
+                <td>@produto.Nome</td>
+                <td>@produto.Descricao</td>
+                <td id="qtd@(produto.ID)">@produto.Quantidade</td>
+                <td>@produto.Categoria.Nome</td>
+                <td>
+                    <button type="button" OnClick="incrementaQtd(@produto.ID)" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button type="button" OnClick="decrementaQtd(@produto.ID)" class="btn btn-danger btn-sm"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function incrementaQtd(id) {
+        $.ajax({
+            type: "post",
+            url: "/Produto/Mais",
+            data: { id: id },
+            success: function (data) {
+                $("#qtd" + data.ID).html(data.Quantidade);
+            }
+        });
+    }
+
+    function decrementaQtd(id) {
+        $.ajax({
+            type: "post",
+            url: "/Produto/Menos",
+            data: { id: id },
+            success: function (data) {
+                $("#qtd" + data.ID).html(data.Quantidade);
+            }
+        });
+    }
+
+</script>

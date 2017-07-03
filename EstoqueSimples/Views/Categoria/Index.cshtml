@@ -30,19 +30,39 @@
 <script>
 
     function deleteTr(id) {
-        $.ajax({
-            type: "post",
-            url: "/Categoria/Remove",
-            data: { id: id },
-            success: function (data) {
-                $("#tr" + data).remove();
-            },
-            error: function (data) {
-                console.log(data);
-                alert(data);
-            }
+        swal({
+            title: "Atenção!",
+            text: "Ao Excluir essa categoria também sera excluido todos os produtos relacionado a ela!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim, Excluir!",
+            cancelButtonText: "Não",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
 
-        });
+                    $.ajax({
+                        type: "post",
+                        url: "/Categoria/Remove",
+                        data: { id: id },
+                        success: function (data) {
+                            $("#tr" + data).remove();
+                            swal("Deletado!", "Operação realizada com sucesso.", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            swal("Erro", "Erro ao tenta excluir:" + data, "error");
+                        }
+
+                    });
+                } else {
+                    swal("Cancelado", "Operação realizada com sucesso.", "error");
+                }
+            });
+
     }
 
 </script>

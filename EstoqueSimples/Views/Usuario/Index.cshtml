@@ -29,20 +29,41 @@
 
 <script>
 
-    function deleteTr(id) {
-        $.ajax({
-            type: "post",
-            url: "/Usuario/Remove",
-            data: { id: id },
-            success: function (data) {
-                $("#tr" + data).remove();
-            },
-            error: function (data) {
-                console.log(data);
-                alert(data);
-            }
 
-        });
+    function deleteTr(id) {
+        swal({
+            title: "Você tem certeza?",
+            text: "Você tem certeza que deseja fazer essa alteração!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+
+                    $.ajax({
+                        type: "post",
+                        url: "/Usuario/Remove",
+                        data: { id: id },
+                        success: function (data) {
+                            $("#tr" + data).remove();
+                            swal("Deletado!", "Operação realizada com sucesso.", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            swal("Erro", "Erro ao tenta excluir:" + data, "error");
+                        }
+
+                    });
+                } else {
+                    swal("Cancelado", "Operação realizada com sucesso.", "error");
+                }
+            });
+
     }
 
 </script>

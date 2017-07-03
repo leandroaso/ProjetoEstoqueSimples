@@ -6,15 +6,15 @@
             <input type="hidden" name="usuario.ID" value="@ViewBag.Usuario.ID" />
             <div class="form-group col-md-6">
                 <label for="Nome">Nome:</label>
-                <input type="text" name="usuario.Nome" class="form-control input-sm" value="@ViewBag.Usuario.Nome" />
+                <input type="text" name="usuario.Nome" class="form-control input-sm" value="@ViewBag.Usuario.Nome" required/>
             </div>
             <div class="form-group col-md-6">
                 <label for="Login">Login:</label>
-                <input type="text" name="usuario.Login" class="form-control input-sm" value="@ViewBag.Usuario.Login" />
+                <input type="text" name="usuario.Login" class="form-control input-sm" value="@ViewBag.Usuario.Login" required/>
             </div>
             <div class="form-group col-md-6">
                 <label for="Senha">Senha:</label>
-                <input type="password" name="usuario.Senha" class="form-control input-sm" value="@ViewBag.Usuario.Senha" />
+                <input type="password" name="usuario.Senha" class="form-control input-sm" value="@ViewBag.Usuario.Senha" required/>
             </div>
 
             <div class="form-group col-md-12">
