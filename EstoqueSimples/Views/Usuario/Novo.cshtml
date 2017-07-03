@@ -1,0 +1,29 @@
+﻿<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form action="/Usuario/Cadastro" method="post">
+            <h3 class="text-center">Cadastro de Usuarios</h3>
+            <br />
+            <input type="hidden" name="usuario.ID" value="@ViewBag.Usuario.ID" />
+            <div class="form-group col-md-6">
+                <label for="Nome">Nome:</label>
+                <input type="text" name="usuario.Nome" class="form-control input-sm" value="@ViewBag.Usuario.Nome" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Login">Login:</label>
+                <input type="text" name="usuario.Login" class="form-control input-sm" value="@ViewBag.Usuario.Login" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Senha">Senha:</label>
+                <input type="password" name="usuario.Senha" class="form-control input-sm" value="@ViewBag.Usuario.Senha" />
+            </div>
+
+            <div class="form-group col-md-12">
+                <p class="pull-right">
+                    <button type="submit" class="btn btn-success btn-sm">Salvar</button>
+                    <a href="/Usuario" class="btn btn-default btn-sm">Voltar</a>
+                </p>
+            </div>
+        </form>
+
+    </div>
+</div>

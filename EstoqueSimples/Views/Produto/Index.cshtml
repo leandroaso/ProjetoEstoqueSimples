@@ -1,0 +1,75 @@
+﻿
+<a href="/Produto/Novo" class="btn btn-success pull-right border-0">Adicionar</a>
+<h4>Lista de Produtos</h4>
+
+<table class="table table-hover table-style text-center">
+    <thead>
+        <tr>
+            <th class="col-md-1">Id</th>
+            <th>Nome</th>
+            <th>Descricao</th>
+            <th>Quantidade</th>
+            <th>Categoria</th>
+            <th width="12%">Acoes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in ViewBag.Produtos)
+        {
+            <tr id="tr@(produto.ID)">
+                <td>@produto.ID</td>
+                <td>@produto.Nome</td>
+                <td>@produto.Descricao</td>
+                <td id="qtd@(produto.ID)">@produto.Quantidade</td>
+                <td>@produto.Categoria.Nome</td>
+                <td>
+                    <button type="button" OnClick="incrementaQtd(@produto.ID)" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button type="button" OnClick="decrementaQtd(@produto.ID)" class="btn btn-danger btn-sm"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    <a href="/Produto/Novo/@produto.ID" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <button type="button" onclick="deleteTr(@produto.ID)" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function incrementaQtd(id) {
+        $.ajax({
+            type: "post",
+            url: "/Produto/Mais",
+            data: { id: id },
+            success: function (data) {
+                $("#qtd" + data.ID).html(data.Quantidade);
+            }
+        });
+    }
+
+    function decrementaQtd(id) {
+        $.ajax({
+            type: "post",
+            url: "/Produto/Menos",
+            data: { id: id },
+            success: function (data) {
+                $("#qtd" + data.ID).html(data.Quantidade);
+            }
+        });
+    }
+
+    function deleteTr(id) {
+        $.ajax({
+            type: "post",
+            url: "/Produto/Remove",
+            data: { id: id },
+            success: function (data) {
+                $("#tr" + data).remove();
+            },
+            error: function (data) {
+                console.log(data);
+                alert(data);
+            }
+
+        });
+    }
+
+</script>

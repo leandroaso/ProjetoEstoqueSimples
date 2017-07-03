@@ -1,0 +1,28 @@
+﻿.border-0 {
+    border-radius: 0;
+    border: none;
+}
+
+.pdd-0 {
+    padding: 0 !important;
+}
+
+.table-style > tbody > tr > td {
+    padding: 0 !important;
+    vertical-align: middle;
+}
+
+.table-style > thead {
+    color: #9d9d9d;
+    text-align: center !important;
+    background-color: #333;
+}
+
+.table-style > thead > tr > th {
+    text-align: center !important;
+}
+
+.panel-inverse {
+    color: #9d9d9d;
+    background-color: #333;
+}
