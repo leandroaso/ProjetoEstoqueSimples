@@ -7,10 +7,10 @@
         <tr>
             <th class="col-md-1">Id</th>
             <th>Nome</th>
-            <th>Descricao</th>
+            <th>Descrição</th>
             <th>Quantidade</th>
             <th>Categoria</th>
-            <th width="12%">Acoes</th>
+            <th width="12%">Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -23,10 +23,10 @@
                 <td id="qtd@(produto.ID)">@produto.Quantidade</td>
                 <td>@produto.Categoria.Nome</td>
                 <td>
-                    <button type="button" OnClick="incrementaQtd(@produto.ID)" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                    <button type="button" OnClick="decrementaQtd(@produto.ID)" class="btn btn-danger btn-sm"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                    <a href="/Produto/Novo/@produto.ID" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    <button type="button" onclick="deleteTr(@produto.ID)" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button type="button" OnClick="incrementaQtd(@produto.ID)"  title="Adicionar mais um na quantidade" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button type="button" OnClick="decrementaQtd(@produto.ID)"  title="Diminuir menos um na quantidade" class="btn btn-danger btn-sm"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    <a href="/Produto/Novo/@produto.ID" class="btn btn-warning btn-sm" title="Editar Produto"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <button type="button" onclick="deleteTr(@produto.ID)" class="btn btn-sm btn-danger" title="Deletar Produto"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>
             </tr>
         }

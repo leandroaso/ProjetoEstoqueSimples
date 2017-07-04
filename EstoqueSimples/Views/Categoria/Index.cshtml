@@ -1,5 +1,5 @@
 ﻿
-<a href="/Categoria/Novo" class="btn btn-success pull-right border-0">Adicionar</a>
+<a href="/Categoria/Novo" class="btn btn-success pull-right border-0" title="Adicionar uma Categoria">Adicionar</a>
 <h4>Lista de Categorias</h4>
 
 <table class="table table-hover table-style text-center">
@@ -7,8 +7,8 @@
         <tr>
             <th class="col-md-1">Id</th>
             <th>Nome</th>
-            <th>Descricao</th>
-            <th class="col-md-1">Acoes</th>
+            <th>Descrição</th>
+            <th class="col-md-1">Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -19,8 +19,8 @@
                 <td>@categoria.Nome</td>
                 <td>@categoria.Descricao</td>
                 <td>
-                    <a href="/Categoria/Novo/@categoria.ID" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    <button type="button" onclick="deleteTr(@categoria.ID)" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <a href="/Categoria/Novo/@categoria.ID" title="Editar Categoria" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <button type="button" onclick="deleteTr(@categoria.ID)" title="Excluir Categoria" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>
             </tr>
         }

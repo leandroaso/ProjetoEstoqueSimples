@@ -1,0 +1,113 @@
+﻿<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form action="/Usuario/Cadastro" method="post" id="form">
+            <h3 class="text-center">Cadastro de Usuários</h3>
+            <br />
+            <input type="hidden" name="usuario.ID" value="@ViewBag.Usuario.ID" />
+            <div class="form-group col-md-6">
+                <label for="Nome">Nome:</label>
+                <input type="text" name="usuario.Nome" id="nome" class="form-control input-sm" value="@ViewBag.Usuario.Nome" required />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Login">Login:</label>
+                <input type="text" name="usuario.Login" id="login" class="form-control input-sm" value="@ViewBag.Usuario.Login" required />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Senha">Senha Atual:</label>
+                <input type="password" id="st" class="form-control input-sm" value="" required />
+            </div>
+            
+            <div class="form-group col-md-6">
+                <label for="s1">Nova Senha:</label>
+                <input type="password" class="form-control input-sm" name="usuario.Senha" id="s1" value="" required />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="s2">Confirmar Nova Senha:</label>
+                <input type="password" class="form-control input-sm" id="s2" value="" required />
+            </div>
+
+            @if (Session["UsuarioLogadoAdmin"].Equals(true))
+            {
+                <div class="form-group col-md-6">
+                    <label for="Admin">
+                        Admin:
+                        <input type="checkbox" name="usuario.Admin" value="true" checked="@ViewBag.Usuario.Admin.Equals(true)" />
+                    </label>
+                </div>
+            }
+
+            <div class="form-group col-md-12">
+                <p class="pull-right">
+                    <button type="button" class="btn btn-success btn-sm " id="btn-form">Salvar</button>
+                    <a href="/Home" class="btn btn-default btn-sm">Voltar</a>
+                </p>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#btn-form").click(function () {
+            var s1 = $("#s1");
+            var s2 = $("#s2");
+            var nome = $("#nome");
+            var login = $("#login");
+            var st = $("#st");
+
+
+            if (s1.val() != "" && s2.val() != "" && nome.val() != "" && login.val() != "") {
+
+                if (st.val() == "@ViewBag.Usuario.Senha") {
+                    if (s1.val() == s2.val()) {
+                        var formulario = $("form").serialize();
+                        $.ajax({
+                            type: "post",
+                            url: "/Home/EditarPerfil",
+                            data: formulario,
+                            success: function (data) {
+  
+                                swal({
+                                    title: "Sucesso!",
+                                    text: "Dados atualizados com sucesso!",
+                                    type: "success",
+                                    confirmButtonColor: "#5cb85c",
+                                    confirmButtonText: "Ok",
+                                    closeOnConfirm: false,
+                                },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            window.location.reload();
+                                        } else {
+                                           
+                                        }
+                                    });
+
+                            },
+                            error: function (data) {
+                                swal("Erro!", "Erro ao tentar salvar os dados!","warning");
+                            }
+
+                        });
+                        console.log(formulario);
+                    } else {
+                        swal("Atenção!", "Os campos Nova senha e Confimar nova senha não conferem!", "warning");
+                        return false;
+                    }
+                } else {
+                    swal("Atenção!", "Sua Senha Atual não confere!", "warning");
+                    st.focus();
+                }
+                
+            } else {
+                swal("Atenção!", "Todos os campos são obrigatorios!", "warning");
+                return false;
+            }
+
+        });
+
+
+    });
+</script>

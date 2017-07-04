@@ -49,6 +49,8 @@ namespace EstoqueSimples.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Admin");
+
                     b.Property<string>("Login");
 
                     b.Property<string>("Nome");

@@ -8,7 +8,7 @@
             <th class="col-md-1">Id</th>
             <th>Nome</th>
             <th>Login</th>
-            <th class="col-md-1">Acoes</th>
+            <th class="col-md-1">Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -19,8 +19,8 @@
                 <td>@usuario.Nome</td>
                 <td>@usuario.Login</td>
                 <td>
-                    <a href="/Usuario/Novo/@usuario.ID" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    <button type="button" onclick="deleteTr(@usuario.ID)" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <a href="/Usuario/Novo/@usuario.ID" class="btn btn-warning btn-sm" title="Editar Usuario"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <button type="button" onclick="deleteTr(@usuario.ID)" class="btn btn-sm btn-danger" title="Excluir Usuario"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>
             </tr>
         }

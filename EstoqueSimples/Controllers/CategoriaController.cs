@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace EstoqueSimples.Controllers
 {
-    [AutorizacaoFilter]
+    [AutorizacaoFilter,AutorizacaoAdmin]
     public class CategoriaController : Controller
     {
         // GET: Categoria

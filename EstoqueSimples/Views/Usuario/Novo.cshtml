@@ -1,7 +1,7 @@
 ﻿<div class="row">
     <div class="col-md-6 col-md-offset-3">
         <form action="/Usuario/Cadastro" method="post">
-            <h3 class="text-center">Cadastro de Usuarios</h3>
+            <h3 class="text-center">Cadastro de Usuários</h3>
             <br />
             <input type="hidden" name="usuario.ID" value="@ViewBag.Usuario.ID" />
             <div class="form-group col-md-6">
@@ -14,7 +14,16 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="Senha">Senha:</label>
-                <input type="password" name="usuario.Senha" class="form-control input-sm" value="@ViewBag.Usuario.Senha" required/>
+                <input type="password" name="usuario.Senha" class="form-control input-sm" id="s1" value="@ViewBag.Usuario.Senha" required/>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="s2">Confirmar senha:</label>
+                <input type="password" class="form-control input-sm" id="s2" value="@ViewBag.Usuario.Senha" required />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Admin">Admin:
+                    <input type="checkbox" name="usuario.Admin" value="true" checked="@ViewBag.Usuario.Admin.Equals(true)" />
+                </label>
             </div>
 
             <div class="form-group col-md-12">
@@ -27,3 +36,17 @@
 
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#s2, #s1").blur(function () {
+            var s1 = $("#s1");
+            var s2 = $("#s2");
+            if (s2.val() != "" && s1.val() != "" && s1.val() != s2.val()) {
+                swal("Atenção!", "O campo Confirmar senha não esta igual ao campo Senha");
+                s2.val("");
+            }
+        });
+
+    });
+</script>

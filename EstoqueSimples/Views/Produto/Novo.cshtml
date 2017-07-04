@@ -9,12 +9,12 @@
                 <input type="text" name="produto.Nome" class="form-control input-sm" value="@ViewBag.Produto.Nome" required/>
             </div>
             <div class="form-group col-md-6">
-                <label for="Descricao">Descricao:</label>
+                <label for="Descricao">Descrição:</label>
                 <input type="text" name="produto.Descricao" class="form-control input-sm" value="@ViewBag.Produto.Descricao" />
             </div>
             <div class="form-group col-md-6">
                 <label for="Quantidade">Quantidade:</label>
-                <input type="text" name="produto.Quantidade" class="form-control input-sm" value="@ViewBag.Produto.Quantidade" />
+                <input type="text" name="produto.Quantidade" class="form-control input-sm qtd" value="@ViewBag.Produto.Quantidade" />
             </div>
             <div class="form-group col-md-6">
                 <label for="CategoriaId">Categoria:</label>
@@ -37,5 +37,7 @@
 </div>
 
 <script>
-
+    $(document).ready(function () {
+        $(".qtd").mask('0000000');
+    });
 </script>

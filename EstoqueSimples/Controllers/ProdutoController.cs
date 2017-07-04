@@ -13,6 +13,7 @@ namespace EstoqueSimples.Controllers
     public class ProdutoController : Controller
     {
         // GET: Produto
+        [AutorizacaoAdmin]
         public ActionResult Index()
         {
             ViewBag.Menu = "produto";
@@ -23,6 +24,7 @@ namespace EstoqueSimples.Controllers
             return View();
         }
 
+        [AutorizacaoAdmin]
         public ActionResult Novo(int id=0)
         {
             Produto produto;
@@ -47,6 +49,7 @@ namespace EstoqueSimples.Controllers
             return View();
         }
 
+        [AutorizacaoAdmin]
         public ActionResult Cadastro(Produto produto)
         {
             ProdutoDao dao = new ProdutoDao();
@@ -83,7 +86,7 @@ namespace EstoqueSimples.Controllers
 
             return Json(produto);
         }
-
+        [AutorizacaoAdmin]
         public ActionResult Remove(int id)
         {
             ProdutoDao dao = new ProdutoDao();

@@ -12,6 +12,7 @@
     <script src="~/Content/js/jquery-3.2.1.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/sweetalert.min.js"></script>
+    <script src="~/Content/js/jquery.mask.js"></script>
 
     <title>@ViewBag.Title</title>
 
@@ -22,7 +23,9 @@
 
             .navbar li > a:hover {
                 background-color: #080808 !important;
+                color: #ffffff !important;
             }
+        
     </style>
 </head>
 <body>
@@ -32,13 +35,23 @@
                 <a class="navbar-brand" href="/Home">Stoque Simples</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="@(ViewBag.Menu == "produto" ? "active": "")"><a href="/Produto">Produtos</a></li>
-                <li class="@(ViewBag.Menu == "categoria" ? "active": "")"><a href="/Categoria">Categorias</a></li>
-                <li class="@(ViewBag.Menu == "usuario" ? "active": "")"><a href="/Usuario">Usuarios</a></li>
+                @if (Session["UsuarioLogadoAdmin"].Equals(true))
+                {
+                    <li class="@(ViewBag.Menu == "produto" ? "active": "")"><a href="/Produto">Produtos</a></li>
+                    <li class="@(ViewBag.Menu == "categoria" ? "active": "")"><a href="/Categoria">Categorias</a></li>
+                    <li class="@(ViewBag.Menu == "usuario" ? "active": "")"><a href="/Usuario">Usuários</a></li>
+                }
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">@Session["UsuarioLogadoNome"]</a></li>
-                <li><a href="/Home/Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+
+            <ul class="nav navbar-nav navbar-right ">
+                <li class="dropdown">
+                    <a href="javascrip:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> @Session["UsuarioLogadoNome"]</a>
+                    <ul class="dropdown-menu border-0">
+                        <li><a href="/Home/Editar"><i class="fa fa-cog" aria-hidden="true"></i> Editar</a></li>
+                        <li><a href="/Home/Logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
+                    </ul>
+                </li>
+                
             </ul>
 
         </div>

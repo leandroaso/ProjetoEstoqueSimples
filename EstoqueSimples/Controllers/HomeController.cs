@@ -22,7 +22,7 @@ namespace EstoqueSimples.Controllers
             string qtdMax = Request.QueryString["qtdMax"];
 
             EstoqueContext contexto = new EstoqueContext();
-            var busca = from p in contexto.Produtos.Include(p => p.Categoria) select p ;
+            var busca = from p in contexto.Produtos.Include(p => p.Categoria) select p;
 
             if (!String.IsNullOrEmpty(nome))
             {
@@ -52,9 +52,35 @@ namespace EstoqueSimples.Controllers
             return View();
         }
 
-        public ActionResult Login()
+        public ActionResult Login(string Login=null,string Senha=null)
         {
+
+
+            UsuarioDao dao;
+            if (!String.IsNullOrEmpty(Login) || !String.IsNullOrEmpty(Senha))
+            {
+                dao = new UsuarioDao();
+                Usuario usuario = dao.AutenticaUsuario(Login, Senha);
+
+                if (usuario != null)
+                {
+                    Session["UsuarioLogadoNome"] = usuario.Nome;
+                    Session["UsuarioLogado"] = usuario;
+                    Session["UsuarioLogadoId"] = usuario.ID;
+                    Session["UsuarioLogadoAdmin"] = usuario.Admin;
+
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Erro = true;
+                    return View();
+                }
+            }
+            ViewBag.Erro = false;
             return View();
+
         }
 
         public ActionResult Logout()
@@ -63,22 +89,22 @@ namespace EstoqueSimples.Controllers
             return RedirectToAction("Login");
         }
 
-        public ActionResult AutenticaUsuario(string Login, string Senha)
+        
+        [AutorizacaoFilter]
+        public ActionResult Editar()
         {
+            Object id = Session["UsuarioLogadoId"];
             UsuarioDao dao = new UsuarioDao();
-            Usuario usuario = dao.AutenticaUsuario(Login, Senha);
-            if (usuario !=null)
-            {
-                Session["UsuarioLogadoNome"] = usuario.Nome; 
-                Session["UsuarioLogadoId"] = usuario.ID;
-                Session["UsuarioLogado"] = usuario;
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
+            ViewBag.Usuario = dao.Find(Convert.ToInt32(id));
+
+            return View();
         }
 
+        public ActionResult EditarPerfil(Usuario usuario)
+        {
+            UsuarioDao dao = new UsuarioDao();
+            dao.Update(usuario);
+            return Json(usuario);
+        }
     }
 }

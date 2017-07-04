@@ -159,6 +159,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\jquery-3.2.1.min.js" />
+    <Content Include="Content\js\jquery.mask.js" />
     <Content Include="Content\js\sweetalert.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -178,6 +179,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EstoqueDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Filtros\AutorizacaoAdminAttribute.cs" />
     <Compile Include="Filtros\AutorizacaoFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -193,6 +195,10 @@
     <Compile Include="Migrations\20170703033253_migration.cs" />
     <Compile Include="Migrations\20170703033253_migration.designer.cs">
       <DependentUpon>20170703033253_migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170704153631_usuarioAdmin.cs" />
+    <Compile Include="Migrations\20170704153631_usuarioAdmin.designer.cs">
+      <DependentUpon>20170704153631_usuarioAdmin.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\EstoqueContextModelSnapshot.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -229,6 +235,7 @@
     <Content Include="EstoqueDataSet.xss">
       <DependentUpon>EstoqueDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Home\Editar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
