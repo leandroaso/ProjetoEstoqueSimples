@@ -45,6 +45,8 @@ namespace EstoqueSimples.Controllers
             return View();
         }
 
+
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Cadastro(Usuario usuario)
         {
             UsuarioDao dao = new UsuarioDao();

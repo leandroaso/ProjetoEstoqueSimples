@@ -3,6 +3,7 @@
         <form action="/Produto/Cadastro" method="post">
             <h3 class="text-center">Cadastro de Produtos</h3>
             <br />
+            @Html.AntiForgeryToken()
             <input type="hidden" name="produto.ID" value="@ViewBag.Produto.ID" />
             <div class="form-group col-md-6">
                 <label for="Nome">Nome:</label>

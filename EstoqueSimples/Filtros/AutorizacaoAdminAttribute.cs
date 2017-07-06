@@ -12,13 +12,16 @@ namespace EstoqueSimples.Filtros
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             Object Admin = filterContext.HttpContext.Session["UsuarioLogadoAdmin"];
-
-            if (Admin.Equals(false))
+            if (Admin == null)
             {
-                filterContext.Result = new RedirectToRouteResult(
-                    new RouteValueDictionary(
-                        new { action = "Index", controller = "Home" }));
+                if (Admin.Equals(false))
+                {
+                    filterContext.Result = new RedirectToRouteResult(
+                        new RouteValueDictionary(
+                            new { action = "Index", controller = "Home" }));
+                }
             }
+            
             base.OnActionExecuting(filterContext);
         }
     }

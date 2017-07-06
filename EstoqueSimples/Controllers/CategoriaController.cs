@@ -44,6 +44,7 @@ namespace EstoqueSimples.Controllers
             return View();
         }
 
+        [HttpPost,ValidateAntiForgeryToken]
         public ActionResult Cadastro(Categoria categoria)
         {
             CategoriaDao dao = new CategoriaDao();

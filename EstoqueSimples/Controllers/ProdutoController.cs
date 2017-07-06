@@ -49,6 +49,7 @@ namespace EstoqueSimples.Controllers
             return View();
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
         [AutorizacaoAdmin]
         public ActionResult Cadastro(Produto produto)
         {

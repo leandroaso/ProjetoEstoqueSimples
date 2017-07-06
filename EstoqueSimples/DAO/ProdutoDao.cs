@@ -50,5 +50,30 @@ namespace EstoqueSimples.DAO
             return ctx.Produtos.Include(u => u.Categoria).ToList();
         }
 
+        public IList<Produto> BuscaPorNomeNomeCategoriaQtdMinQtdMax(string nome, string nomeCategoria, string qtdMim, string qtdMax)
+        {
+            var busca = from p in ctx.Produtos.Include(p => p.Categoria) select p;
+
+            if (!String.IsNullOrEmpty(nome))
+            {
+                busca = busca.Where(p => p.Nome == nome);
+            }
+            if (!String.IsNullOrEmpty(nomeCategoria))
+            {
+                busca = busca.Where(p => p.Categoria.Nome == nomeCategoria);
+
+            }
+            if (!String.IsNullOrEmpty(qtdMim))
+            {
+                busca = busca.Where(p => p.Quantidade >= Convert.ToInt32(qtdMim));
+            }
+            if (!String.IsNullOrEmpty(qtdMax))
+            {
+                busca = busca.Where(p => p.Quantidade <= Convert.ToInt32(qtdMax));
+
+            }
+
+            return busca.ToList();
+        }
     }
 }

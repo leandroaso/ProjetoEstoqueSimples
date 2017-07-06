@@ -21,29 +21,9 @@ namespace EstoqueSimples.Controllers
             string qtdMim = Request.QueryString["qtdMim"];
             string qtdMax = Request.QueryString["qtdMax"];
 
-            EstoqueContext contexto = new EstoqueContext();
-            var busca = from p in contexto.Produtos.Include(p => p.Categoria) select p;
+            ProdutoDao produtoDao = new ProdutoDao();
 
-            if (!String.IsNullOrEmpty(nome))
-            {
-                busca = busca.Where(p => p.Nome == nome);
-            }
-            if (!String.IsNullOrEmpty(nomeCategoria))
-            {
-                busca = busca.Where(p => p.Categoria.Nome == nomeCategoria);
-
-            }
-            if (!String.IsNullOrEmpty(qtdMim))
-            {
-                busca = busca.Where(p => p.Quantidade >= Convert.ToInt32(qtdMim));
-            }
-            if (!String.IsNullOrEmpty(qtdMax))
-            {
-                busca = busca.Where(p => p.Quantidade <= Convert.ToInt32(qtdMax));
-
-            }
-
-            ViewBag.Produtos = busca.ToList();
+            ViewBag.Produtos = produtoDao.BuscaPorNomeNomeCategoriaQtdMinQtdMax(nome,nomeCategoria,qtdMim,qtdMax);
 
             CategoriaDao categoriaDao = new CategoriaDao();
             ViewBag.Categorias = categoriaDao.List();
@@ -89,7 +69,6 @@ namespace EstoqueSimples.Controllers
             return RedirectToAction("Login");
         }
 
-        
         [AutorizacaoFilter]
         public ActionResult Editar()
         {
@@ -100,6 +79,7 @@ namespace EstoqueSimples.Controllers
             return View();
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult EditarPerfil(Usuario usuario)
         {
             UsuarioDao dao = new UsuarioDao();
